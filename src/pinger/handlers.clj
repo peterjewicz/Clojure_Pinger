@@ -8,5 +8,5 @@
 
 (defn handle-ping-failure
   "Handler for When a Site is Down"
-  []
-  (println "Error - Site is Down"))
+  [site]
+  (println "Error - Site is Down" site))
