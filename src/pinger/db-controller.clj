@@ -14,3 +14,17 @@
   (j/query mysql-db
   ["select * from sites"]
   {:row-fn :url}))
+
+
+
+(defn insert-on-success
+  "Query to update DB on successfull ping"
+  [site]
+  (j/query mysql-db
+  ["insert (?, ?, ?, ?) into failed_pings"]))
+
+(defn insert-on-fail
+  "Query to update DB on a failed ping"
+  [site]
+  (j/query mysql-db
+  ["insert (?, ?, ?) into successful_pings"]))

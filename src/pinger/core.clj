@@ -19,7 +19,7 @@
 ; Ping them to check if the site is loading correclty
 
 ;TODO Change this to be pulled from a DB - This is just for testing purposes
-(def sites ["http://www.totalwebconnections.com", "https://www.simpleleadtrackers.com", "https://www.lifting-buddys.com"])
+;(def sites ["http://www.totalwebconnections.com", "https://www.simpleleadtrackers.com", "https://www.lifting-buddys.com"])
 
 (defn ping-sites
   "Handles The Thread That Pings Sites"
@@ -30,12 +30,12 @@
   (catch Exception e
     (handle-ping-failure site))))
 
-(defn run-loop [max]
+(defn run-loop [max sites]
   (loop [n max]
     (when (pos? n)
       (doseq [i sites]
+        (println i)
         (thread (ping-sites i)))
-      (Thread/sleep 10000)
       (recur (dec n)))))
 
 
@@ -43,6 +43,5 @@
   "I don't do a whole lot ... yet."
   [& args]
   (println "Server Starting")
-  ; (run-loop 100000)
   (def urls (query-sites))
-  (println urls))
+  (run-loop 100000 urls))
