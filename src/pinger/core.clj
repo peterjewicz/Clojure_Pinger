@@ -46,6 +46,4 @@
   [& args]
   (println "Server Starting")
   (def urls (query-sites))
-  (println urls)
-  ; (run-loop 100000 urls)
-  )
+  (run-loop 100000 urls))
