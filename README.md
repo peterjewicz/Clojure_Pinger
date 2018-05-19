@@ -1,36 +1,20 @@
 # pinger
 
-FIXME: description
+A simple application that pings a list of sites to check they're active and records the results to a DB
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Clone this repo. Upload the DB file to MySQL and populate with sites.
+
+
+Then run from the project directory
+
+lein run
+
+
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar pinger-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
+Spawns multiple threads where each ping check is farmed out to an individual thread.
 
 ### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2018 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.

@@ -8,8 +8,9 @@
     [clojure.java.jdbc :as j]))
 
 ;Load needed files
-(load "handlers");
 (load "db-controller")
+(load "handlers");
+
 
 
 
@@ -26,7 +27,7 @@
   [site]
   (try
     (def request-result (client/get site {:accept :json}))
-    (handle-ping-success request-result)
+    (handle-ping-success site)
   (catch Exception e
     (handle-ping-failure site))))
 
@@ -36,6 +37,7 @@
       (doseq [i sites]
         (println i)
         (thread (ping-sites i)))
+        (Thread/sleep 5000)
       (recur (dec n)))))
 
 
@@ -44,4 +46,6 @@
   [& args]
   (println "Server Starting")
   (def urls (query-sites))
-  (run-loop 100000 urls))
+  (println urls)
+  ; (run-loop 100000 urls)
+  )

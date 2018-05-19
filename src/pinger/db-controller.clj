@@ -20,11 +20,11 @@
 (defn insert-on-success
   "Query to update DB on successfull ping"
   [site]
-  (j/query mysql-db
-  ["insert (?, ?, ?, ?) into failed_pings"]))
+  (j/insert-multi! mysql-db :successful_pings
+  [{:site_id 1 :timestamp (System/currentTimeMillis)}]))
 
 (defn insert-on-fail
   "Query to update DB on a failed ping"
   [site]
-  (j/query mysql-db
-  ["insert (?, ?, ?) into successful_pings"]))
+  (j/insert-multi! mysql-db :failed_pings
+  [{:site_id 1 :failure_time (System/currentTimeMillis) :failure_reason "Not Sure Yet" :site_url site}]))
