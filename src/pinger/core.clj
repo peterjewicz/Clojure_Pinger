@@ -1,18 +1,9 @@
 (ns pinger.core
   (:gen-class)
-  (:require [clojure.core.async
-    :as a
-    :refer [>! <! >!! <!! go go-loop chan buffer close! thread
-    alts! alts!! timeout]]
-    [clj-http.client :as client]
-    [clojure.java.jdbc :as j]))
-
-;Load needed files
-(load "db-controller")
-(load "handlers");
-
-
-
+  (:require [clj-http.client :as client]
+            [clojure.java.jdbc :as j]
+            [pinger.dbcontroller :as db]
+            [pinger.handlers :as handlers]))
 
 ; Main Thread
 ; Should loop through all sites in DB
@@ -27,9 +18,9 @@
   [site]
   (try
     (def request-result (client/get site {:accept :json}))
-    (handle-ping-success site)
+    (handlers/handle-ping-success site)
   (catch Exception e
-    (handle-ping-failure site))))
+    (handlers/handle-ping-failure site))))
 
 (defn run-loop [max sites]
   (loop [n max]
@@ -41,9 +32,23 @@
       (recur (dec n)))))
 
 
+(defn test-query
+  []
+  (try
+    (def result (client/get "http://www.totalwebconnections.com/asdasdad" {:as :json}))
+    (println result)
+    (result :status)
+    ; (result :request-time)
+  (catch Exception e
+    (println "Error")
+    (.getMessage  e)))
+
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
   (println "Server Starting")
-  (def urls (query-sites))
-  (run-loop 100000 urls))
+  ; (def urls (query-sites))
+  ; (run-loop 100000 urls)
+  (test-query)
+  )

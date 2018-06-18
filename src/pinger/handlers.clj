@@ -1,3 +1,5 @@
+(ns pinger.handlers
+  (:require [pinger.dbcontroller :as db]))
 ;Functions that handle success or failure of the ping
 
 
@@ -5,10 +7,10 @@
   "Handler for when a site is successfully pinged"
   [site]
   (println "Site Is Up!")
-  (insert-on-success site))
+  (db/insert-on-success site))
 
 (defn handle-ping-failure
   "Handler for When a Site is Down"
   [site]
   (println "Error - Site is Down" site)
-  (insert-on-fail site))
+  (db/insert-on-fail site))

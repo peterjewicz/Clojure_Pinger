@@ -1,3 +1,5 @@
+(ns piger.dbcontroller)
+
 ;All the database query and connection info should be saved here
 
 (def mysql-db {:dbtype "mysql"
